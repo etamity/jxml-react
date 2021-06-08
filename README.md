@@ -64,3 +64,20 @@ import Example from 'jxml-react';
 
 export default () => <Example />;
 ```
+
+# Runtime Render:
+
+```jsx
+import JXProvider from 'jxml-react';
+
+export default () => (
+  <JXProvider context={{ components: {}, scope: {}, thisContext: {} }}>
+    {`
+---
+version: 1.0 
+render: 
+  Button: Default Button
+`}
+  </JXProvider>
+);
+```
