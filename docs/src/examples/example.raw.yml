@@ -1,0 +1,67 @@
+# schema: 'jx'
+---
+version: 1.0
+
+remote:
+  # Default:
+  #   url: '/antd/remoteEntry.js'
+  #   scope: 'antd'
+  # Mui:
+  #   url: '/material/remoteEntry.js'
+  #   scope: 'material'
+  # Antd:
+  #   url: '/antd/remoteEntry.js'
+  #   scope: 'antd'
+state:
+  buttons:
+    - label: Material UI 0
+      variant: contained
+      color: primary
+    - label: Material UI 1
+      variant: contained
+      color: green
+render:
+  className: grid grid-rows
+  Button:
+    className: flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg
+    type: primary
+    danger: 'true'
+    children: test
+    onClick: |
+      () => {
+        MicroEvent.emit('aces:accountLookup', { accountId: '12345'});
+      }
+  Antd.Button:
+    type: primary
+    children: Antd UI Button
+    onClick: |
+      () => {
+        const button = {
+          label: `Material UI ${this.state.buttons.length}`,
+          color: 'secondary',
+          variant: 'contained',
+          onClick: (e) => console.log(button.label),
+        };
+        const buttons = [...this.state.buttons, button];
+        this.setState(state => {
+            state.buttons.push(button);
+        });
+      }
+  JXComponent.Render:
+    onMapProps: |
+      () => {
+        return this.state.buttons.map((
+          { 
+            label, 
+            ...props
+          }, 
+          index) =>  {
+            return {
+              ...props,
+              key: index,
+              children: label
+            };
+          });
+      }
+    Mui.Button:
+      children: test

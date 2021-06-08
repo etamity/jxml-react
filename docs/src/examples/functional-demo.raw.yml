@@ -1,0 +1,60 @@
+# schema: 'jx'
+---
+version: 1.0
+
+remote:
+  # Default:
+  #   url: '/antd/remoteEntry.js'
+  #   scope: 'antd'
+  # Mui:
+  #   url: '/material/remoteEntry.js'
+  #   scope: 'material'
+  # Antd:
+  #   url: '/antd/remoteEntry.js'
+  #   scope: 'antd'
+state:
+  buttons:
+    - label: Material UI 0
+      variant: contained
+      color: primary
+    - label: Material UI 1
+      variant: contained
+      color: green
+
+render:
+  className: grid grid-rows
+  Antd.Button:
+    type: primary
+    children: Antd UI Button
+    onClick: |
+      () => {
+        const button = {
+          label: `Material UI ${this.state.buttons.length}`,
+          color: 'secondary',
+          variant: 'contained',
+          onClick: (e) => console.log(button.label),
+        };
+        const buttons = [...this.state.buttons, button];
+        this.setState(state => {
+            state.buttons.push(button);
+        });
+      }
+  JXComponent.Render:
+    onMapProps: |
+      (props) => {
+        console.log(this);
+        return this.state?.buttons?.map((
+          { 
+            label, 
+            ...props
+          }, 
+          index) =>  {
+            return {
+              ...props,
+              key: index,
+              children: label
+            };
+          });
+      }
+    Mui.Button:
+      children: test

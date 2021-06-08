@@ -1,0 +1,32 @@
+# schema: 'jx'
+---
+version: 1.0
+
+remote:
+  # Default:
+  #   url: '/antd/remoteEntry.js'
+  #   scope: 'antd'
+  # Mui:
+  #   url: '/material/remoteEntry.js'
+  #   scope: 'material'
+  # Antd:
+  #   url: '/antd/remoteEntry.js'
+  #   scope: 'antd'
+state:
+  title: Antd UI Button
+
+render:
+  className: grid grid-rows
+  Mui.Button:
+    variant: contained
+    color: secondary
+    children: Material UI Button
+  Antd.Button:
+    type: primary
+    children: this.state.title
+    onClick: |
+      () => {
+        this.setState(state => {
+            state.title = 'state changed!';
+        });
+      }
