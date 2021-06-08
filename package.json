@@ -17,7 +17,8 @@
     "ui"
   ],
   "exports": {
-    "./loader": "./dist/loader.js"
+    "./loader": "./dist/loader.js",
+    "./": "./dist/bundle.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -41,7 +42,7 @@
     "@rematch/immer": "^2.0.1",
     "@rematch/loading": "^2.0.1",
     "@tailwindcss/typography": "^0.4.1",
-    "@webpack-cli/generators": "^2.1.0",
+    "@webpack-cli/generators": "^2.2.0",
     "autoprefixer": "^9.8.6",
     "babel-loader": "^8.2.2",
     "connected-react-router": "^6.9.1",
@@ -61,7 +62,7 @@
     "postcss": "^7.0.35",
     "postcss-loader": "^5.3.0",
     "postcss-preset-env": "^6.7.0",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.1",
     "raw-loader": "^4.0.2",
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
@@ -78,9 +79,9 @@
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.4",
     "vm-browserify": "^1.1.2",
     "webpack": "^5.38.1",
-    "webpack-cli": "^4.7.0",
+    "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
-    "webpack-merge": "^5.7.3",
+    "webpack-merge": "^5.8.0",
     "yaml": "^1.10.2",
     "yaml-loader": "^0.6.0"
   },
@@ -89,12 +90,12 @@
     "@material-ui/core": "^4.11.4",
     "@popperjs/core": "2.9.1",
     "@tailwindcss/forms": "0.2.1",
-    "antd": "^4.16.1",
+    "antd": "^4.16.2",
     "chart.js": "2.9.4",
     "immer": "^9.0.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "react-content-loader": "^6.0.3",
+    "react-dom": "^17.0.2",
     "redux": "^4.1.0"
   },
   "peerDependencies": {
