@@ -90,7 +90,12 @@ const config = {
       },
       {
         test: /\.jxml$/,
-        use: ['babel-loader', path.resolve(__dirname, '../dist/loader')],
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+          'jxml-react/loader',
+        ],
       },
       {
         test: /\.mdx?$/,
@@ -112,7 +117,7 @@ const config = {
   },
   resolve: {
     alias: {
-      'jxml-react': path.resolve(process.cwd()),
+      'jxml-react': path.resolve(process.cwd(), '/src'),
     },
   },
 };

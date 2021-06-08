@@ -19,18 +19,16 @@
     "ui"
   ],
   "exports": {
-    "./loader": "./dist/loader.js",
+    "./loader": "./src/loader/index.js",
     ".": "./dist/jxml-react.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run bundle:jxml-react && npm run bundle:loader",
-    "bundle:jxml-react": "microbundle watch --define process.env.NODE_ENV=production --jsx React.createElement --output dist",
-    "bundle:loader": "microbundle watch --external none --define process.env.NODE_ENV=production --target node src/loader/index.js -o dist/loader.js",
-    "build:webpack": "webpack --mode=production --node-env=production",
+    "build": "microbundle --define process.env.NODE_ENV=production --jsx React.createElement --output dist",
     "serve": "webpack serve --config docs/webpack.config.js",
     "build:docs": "webpack --mode=production --node-env=production --config docs/webpack.config.js",
-    "build:modules": "webpack --config docs/webpack.module.config.js --mode=production --node-env=production"
+    "build:modules": "webpack --config docs/webpack.module.config.js --mode=production --node-env=production",
+    "publish:bundle": "npm run build && npm version path && npm publish"
   },
   "author": "Joey.Etamity",
   "license": "MIT",

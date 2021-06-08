@@ -36,14 +36,13 @@ async function fetchModules(remote, setModules) {
 
 const JXProvider = ({ context, children, ...props }) => {
   if (!children) {
-    return <></>;
+    return React.Fragment;
   }
   const jx = children;
   const { onMount, onUnMount, remote } = jx;
   const { components, scope, thisContext } = context || {};
   const [state, _setState] = useState(jx.state);
   const [modules, setModules] = useState(null);
-  // const dispatch = useDispatch();
   const setState = useCallback(
     (newState) => {
       _setState(produce(newState));
@@ -60,7 +59,7 @@ const JXProvider = ({ context, children, ...props }) => {
     ReactRedux,
   };
 
-  const ThisContent = {
+  const EnvContent = {
     ...thisContext,
     setState,
     state,
@@ -70,7 +69,7 @@ const JXProvider = ({ context, children, ...props }) => {
       ...props,
     },
   };
-  const bindScript = bindScopeEnv(EnvScope, ThisContent);
+  const bindScript = bindScopeEnv(EnvScope, EnvContent);
 
   useEffect(() => {
     fetchModules(remote, setModules);
