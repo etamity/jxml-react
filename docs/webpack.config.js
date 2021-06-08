@@ -10,18 +10,18 @@ const isProduction = process.env.NODE_ENV == 'production';
 const images = require('remark-images');
 const emoji = require('remark-emoji');
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
-// const deps = require('../package.json').dependencies;
+const deps = require('../package.json').dependencies;
 
-// const sharedReduce = Object.keys(deps).reduce((shared, pkg) => {
-//   Object.assign(shared, {
-//     [pkg]: {
-//       singleton: true,
-//       eager: true,
-//       requiredVersion: deps[pkg],
-//     },
-//   });
-//   return shared;
-// }, {});
+const sharedReduce = Object.keys(deps).reduce((shared, pkg) => {
+  Object.assign(shared, {
+    [pkg]: {
+      singleton: true,
+      eager: true,
+      requiredVersion: deps[pkg],
+    },
+  });
+  return shared;
+}, {});
 const config = {
   entry: path.resolve(__dirname, './src/index.js'),
   output: {
@@ -44,10 +44,10 @@ const config = {
     historyApiFallback: true,
   },
   plugins: [
-    // new ModuleFederationPlugin({
-    //   name: 'host',
-    //   shared: sharedReduce,
-    // }),
+    new ModuleFederationPlugin({
+      name: 'host',
+      shared: sharedReduce,
+    }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
     }),
