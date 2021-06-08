@@ -1,16 +1,81 @@
-# JXML
+# 🚀 JXML: Render components from Yaml file.
 
-Image we could use yaml file to render react view dynamiccally.
+# Install:
 
-<article class="prose lg:prose-xl">
-  <h1>Garlic bread with cheese: What the science tells us</h1>
-  <p>
-    For years parents have espoused the health benefits of eating garlic bread with cheese to their
-    children, with the food earning such an iconic status in our culture that kids will often dress
-    up as warm, cheesy loaf for Halloween.
-  </p>
-  <p>
-    But a recent study shows that the celebrated appetizer may be linked to a series of rabies cases
-    springing up around the country.
-  </p>
-</article>
+```
+npm i jxml-react
+```
+
+## Add webpack config:
+
+```js
+module.exports = {
+  module: {
+    // ...
+
+    rules: [
+      // ...
+
+      {
+        test: /\.jxml?$/,
+        use: ['babel-loader', 'jxml-react/loader'],
+      },
+    ],
+  },
+};
+```
+
+# Example:
+
+Create a yaml file with extension `example.jxml`
+
+```yaml
+---
+version: 1.0
+
+state:
+  pageTitle: Page title
+
+props:
+  title: Default Button
+
+render:
+  H1: this.state.pageTitle
+  Button:
+    style:
+      background: blue
+      color: white
+      padding: 10px
+    children: this.props.title
+    onClick: |
+      () => {
+        this.setState(state=> {
+            state.pageTitle = 'Hello World!'
+        })
+      }
+```
+
+and then you can import this component to jsx file:
+
+```jsx
+import Example from 'jxml-react';
+
+export default () => <Example />;
+```
+
+# Runtime Render:
+
+```jsx
+import JXProvider from 'jxml-react';
+
+export default () => (
+  <JXProvider context={{ components: {}, scope: {}, thisContext: {} }}>
+    {`
+---
+version: 1.0 
+render: 
+  Button: Default Button
+`}
+  </JXProvider>
+);
+```

@@ -1,0 +1,24 @@
+# schema: 'jx'
+---
+version: 1.0
+
+state:
+  pageTitle: Page title
+
+props:
+  title: Default Button
+
+render:
+  H1: this.state.pageTitle
+  Button:
+    style:
+      background: blue
+      color: white
+      padding: 10px
+    children: this.props.title
+    onClick: |
+      () => {
+          this.setState(state=> {
+              state.pageTitle = 'Hello World!'
+          })
+      }

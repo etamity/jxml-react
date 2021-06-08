@@ -1,13 +1,13 @@
 import Yaml from 'js-yaml';
 import { JXProvider } from 'jxml-react';
 import React, { useCallback, useState } from 'react';
+
 import Layout from './Layout.jxml';
 import Editor from '@monaco-editor/react';
 import IFrame from '../IFrame';
 import { loadJXML } from '../../libs/loadDocs';
 import Dropdown from '../Dropdowns';
 
-console.log(JXProvider);
 const MicroEvent = {
   emit: (event, data) => {
     const packed = { event, data };
@@ -41,9 +41,7 @@ export default ({ open }) => {
         code: value,
         json: newJson,
       });
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   }, []);
 
   const onChangeFile = useCallback((file) => {

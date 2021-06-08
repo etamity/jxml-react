@@ -5,7 +5,6 @@ import { bindScopeEnv } from './libs/utils';
 import JXRender from './JXRender';
 import * as JXComponent from './Components';
 import produce from 'immer';
-import { useDispatch } from 'react-redux';
 import ErrorBoundary from './components/ErrorBoundary';
 import _ from 'lodash';
 import { loadRemoteLib } from './libs';
@@ -37,14 +36,14 @@ async function fetchModules(remote, setModules) {
 
 const JXProvider = ({ context, children, ...props }) => {
   if (!children) {
-    return null;
+    return <></>;
   }
   const jx = children;
   const { onMount, onUnMount, remote } = jx;
   const { components, scope, thisContext } = context || {};
   const [state, _setState] = useState(jx.state);
   const [modules, setModules] = useState(null);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const setState = useCallback(
     (newState) => {
       _setState(produce(newState));
@@ -61,10 +60,9 @@ const JXProvider = ({ context, children, ...props }) => {
     ReactRedux,
   };
 
-  const EnvContent = {
+  const ThisContent = {
     ...thisContext,
     setState,
-    dispatch,
     state,
     local: new Map(),
     props: {
@@ -72,10 +70,9 @@ const JXProvider = ({ context, children, ...props }) => {
       ...props,
     },
   };
-  const bindScript = bindScopeEnv(EnvScope, EnvContent);
+  const bindScript = bindScopeEnv(EnvScope, ThisContent);
 
   useEffect(() => {
-    console.log(modules, remote);
     fetchModules(remote, setModules);
     _setState(jx.state);
     try {

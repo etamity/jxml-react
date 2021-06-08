@@ -1,6 +1,6 @@
 const plugin = require('tailwindcss/plugin');
 const colors = require('tailwindcss/colors');
-console.log('teststat tailwind');
+
 module.exports = {
   purge: {
     enabled: true,

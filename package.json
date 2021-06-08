@@ -3,8 +3,10 @@
   "version": "1.0.3",
   "description": "Render react view from Yaml file",
   "repository": "etamity/jxml-react",
-  "main": "dist/bundle.js",
-  "module": "src/index.js",
+  "main": "./dist/jxml-react.js",
+  "module": "./dist/jxml-react.esm.js",
+  "umd:main": "./dist/jxml-react.umd.js",
+  "source": "src/index.js",
   "files": [
     "dist"
   ],
@@ -18,14 +20,14 @@
   ],
   "exports": {
     "./loader": "./dist/loader.js",
-    ".": {
-      "import": "./src/index.js",
-      "require": "./dist/bundle.js"
-    }
+    ".": "./dist/jxml-react.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode=production --node-env=production",
+    "build": "npm run bundle:jxml-react && npm run bundle:loader",
+    "bundle:jxml-react": "microbundle watch --define process.env.NODE_ENV=production --jsx React.createElement --output dist",
+    "bundle:loader": "microbundle watch --external none --define process.env.NODE_ENV=production --target node src/loader/index.js -o dist/loader.js",
+    "build:webpack": "webpack --mode=production --node-env=production",
     "serve": "webpack serve --config docs/webpack.config.js",
     "build:docs": "webpack --mode=production --node-env=production --config docs/webpack.config.js",
     "build:modules": "webpack --config docs/webpack.module.config.js --mode=production --node-env=production"
@@ -54,10 +56,9 @@
     "history": "^4.10.1",
     "html-webpack-plugin": "^5.3.1",
     "javascript-stringify": "^2.1.0",
-    "js-yaml": "^4.1.0",
-    "js-yaml-js-types": "^1.0.0",
     "loader-utils": "^2.0.0",
     "lodash": "^4.17.21",
+    "microbundle": "^0.13.2",
     "mini-css-extract-plugin": "^1.6.0",
     "monaco-editor": "^0.24.0",
     "path-browserify": "^1.0.1",
@@ -69,7 +70,6 @@
     "react-redux": "^7.2.4",
     "react-router": "^5.2.0",
     "react-router-dom": "5.2.0",
-    "redux": "^4.1.0",
     "remark-emoji": "^2.2.0",
     "remark-frontmatter": "^3.0.0",
     "remark-images": "^2.0.0",
@@ -84,10 +84,10 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.8.0",
+    "js-yaml": "^4.1.0",
+    "js-yaml-js-types": "^1.0.0",
+    "yaml-loader": "^0.6.0",
     "yaml": "^1.10.2",
-    "yaml-loader": "^0.6.0"
-  },
-  "dependencies": {
     "@fortawesome/fontawesome-free": "5.15.3",
     "@material-ui/core": "^4.11.4",
     "@popperjs/core": "2.9.1",

@@ -1,7 +1,5 @@
 import loadDocs from './libs/loadDocs';
 
-console.log(loadDocs);
-
 export default [
   {
     name: 'Getting Started',
