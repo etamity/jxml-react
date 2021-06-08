@@ -17,7 +17,11 @@
     "ui"
   ],
   "exports": {
-    "./loader": "./dist/loader.js"
+    "./loader": "./dist/loader.js",
+    ".": {
+      "import": "./src/index.js",
+      "require": "./dist/bundle.js"
+    }
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -98,8 +102,6 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-dom": "*",
-    "react-redux": "*",
-    "redux": "*"
+    "react-dom": "*"
   }
 }
