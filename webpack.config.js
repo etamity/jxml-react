@@ -2,8 +2,10 @@
 
 const path = require('path');
 const pkg = require('./package.json');
-let libraryName = pkg.name;
-let outputFile, mode;
+
+// import path from 'path';
+// import pkg from './package.json';
+const libraryName = pkg.name;
 
 const modules = {
   module: {
@@ -30,12 +32,16 @@ const configReact = {
   output: {
     path: __dirname + '/dist',
     filename: 'bundle.js',
-    library: libraryName,
+    library: {
+      name: libraryName,
+      type: 'umd',
+    },
     libraryTarget: 'umd',
     libraryExport: 'default',
     umdNamedDefine: true,
     globalObject: "typeof self !== 'undefined' ? self : this",
   },
+
   ...modules,
 };
 const configLoader = {

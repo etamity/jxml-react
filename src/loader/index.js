@@ -7,7 +7,7 @@ module.exports = function jxLoader(src) {
   try {
     const jx = yaml.load(src, { schema });
     result = `
-    import JXProvider from 'jxml-react';
+    import { JXProvider } from 'jxml-react';
     export default ({ context, ...props }) => <JXProvider context={context} {...props} children={${JSON.stringify(
       jx,
     )}}/>

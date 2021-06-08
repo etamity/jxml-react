@@ -54,6 +54,16 @@ const config = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
     }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public'),
+          globOptions: {
+            ignore: ['**/index.html'],
+          },
+        },
+      ],
+    }),
     // Add your plugins here
     // Learn more about plugins from https://webpack.js.org/configuration/plugins/
   ],
@@ -105,7 +115,7 @@ const config = {
   },
   resolve: {
     alias: {
-      'jxml-react': path.join(process.cwd(), 'src/index.js'),
+      'jxml-react': path.resolve(process.cwd()),
     },
   },
 };

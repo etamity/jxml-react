@@ -37,7 +37,7 @@ async function fetchModules(remote, setModules) {
 
 const JXProvider = ({ context, children, ...props }) => {
   if (!children) {
-    return <></>;
+    return null;
   }
   const jx = children;
   const { onMount, onUnMount, remote } = jx;
