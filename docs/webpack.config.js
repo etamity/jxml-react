@@ -49,9 +49,6 @@ const config = {
     }),
     new ModuleFederationPlugin({
       name: 'host',
-      remotes: {
-        aces: 'aces',
-      },
       shared: sharedReduce,
     }),
     new HtmlWebpackPlugin({
