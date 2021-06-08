@@ -8,6 +8,14 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "react",
+    "yaml",
+    "yml",
+    "json",
+    "components",
+    "ui"
+  ],
   "exports": {
     "./loader": "./dist/loader.js"
   },
