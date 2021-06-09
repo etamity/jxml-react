@@ -2,16 +2,16 @@
 ---
 version: 1.0
 
-remote:
-  # Default:
-  #   url: '/antd/remoteEntry.js'
-  #   scope: 'antd'
-  # Mui:
-  #   url: '/material/remoteEntry.js'
-  #   scope: 'material'
-  # Antd:
-  #   url: '/antd/remoteEntry.js'
-  #   scope: 'antd'
+# remote:
+#   Default:
+#     url: '/antd/remoteEntry.js'
+#     scope: 'antd'
+#   Mui:
+#     url: '/material/remoteEntry.js'
+#     scope: 'material'
+#   Antd:
+#     url: '/antd/remoteEntry.js'
+#     scope: 'antd'
 state:
   buttons:
     - label: Material UI 0
@@ -29,7 +29,7 @@ render:
     children: test
     onClick: |
       () => {
-        MicroEvent.emit('aces:accountLookup', { accountId: '12345'});
+        MicroEvent.emit('someapp:accountLookup', { accountId: '12345'});
       }
   Antd.Button:
     type: primary
@@ -50,7 +50,7 @@ render:
   JXComponent.Render:
     onMapProps: |
       () => {
-        return this.state.buttons.map((
+        return this.state?.buttons?.map((
           { 
             label, 
             ...props

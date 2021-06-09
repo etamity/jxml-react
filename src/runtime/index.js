@@ -59,17 +59,16 @@ const JXProvider = ({ context, children, ...props }) => {
     ReactRedux,
   };
 
-  const EnvContent = {
+  const ThisContent = {
     ...thisContext,
     setState,
     state,
-    local: new Map(),
     props: {
       ...jx.props,
       ...props,
     },
   };
-  const bindScript = bindScopeEnv(EnvScope, EnvContent);
+  const bindScript = bindScopeEnv(EnvScope, ThisContent);
 
   useEffect(() => {
     fetchModules(remote, setModules);

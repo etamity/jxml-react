@@ -1,20 +1,39 @@
 const plugin = require('tailwindcss/plugin');
 const colors = require('tailwindcss/colors');
+const mdx = require('@mdx-js/mdx');
+console.log('test');
 
 module.exports = {
   purge: {
     enabled: true,
+    mode: 'all',
     content: [
       './public/**/*.html',
       './public/*.html',
-      './src/**/*.js',
-      './src/*.js',
+      './src/**/*.{js,mdx}',
       './src/**/*.html',
       './src/*.html',
       './public/**/*.js',
       './public/*.js',
     ],
     options: {
+      extractors: [
+        {
+          extensions: ['mdx'],
+          extractor: (content) => {
+            content = mdx.sync(content);
+
+            // Capture as liberally as possible, including things like `h-(screen-1.5)`
+            const broadMatches = content.match(/[^<>"'`\s]*[^<>"'`\s:]/g) || [];
+
+            // Capture classes within other delimiters like .block(class="w-1/2") in Pug
+            const innerMatches =
+              content.match(/[^<>"'`\s.(){}[\]#=%]*[^<>"'`\s.(){}[\]#=%:]/g) || [];
+
+            return broadMatches.concat(innerMatches);
+          },
+        },
+      ],
       safelist: [],
     },
   },

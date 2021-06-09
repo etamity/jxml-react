@@ -24,6 +24,7 @@ const sharedReduce = Object.keys(deps).reduce((shared, pkg) => {
 }, {});
 const config = {
   entry: path.resolve(__dirname, './src/index.js'),
+  devtool: 'source-map',
   output: {
     publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
@@ -117,7 +118,8 @@ const config = {
   },
   resolve: {
     alias: {
-      'jxml-react': path.resolve(process.cwd()),
+      'jxml-react': path.resolve(process.cwd(), '/src/index.js'),
+      'jxml-react/loader': path.resolve(process.cwd(), '/src/loader/index.js'),
     },
   },
 };
@@ -125,8 +127,7 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
-
-    config.plugins.push(new MiniCssExtractPlugin());
+    config.config.plugins.push(new MiniCssExtractPlugin());
   } else {
     config.mode = 'development';
   }

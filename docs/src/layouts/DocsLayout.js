@@ -13,7 +13,7 @@ export default ({ children }) => {
     <>
       {menuOpen && <Navigation routes={routes} />}
       <div
-        className={`transition-all duration-150 relative bg-gray-100 ${
+        className={`transition-all duration-150 relative ${
           menuOpen ? 'ml-64 ease-in-in' : 'ml-0 ease-in-out'
         }`}
       >

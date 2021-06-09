@@ -15,5 +15,5 @@ render:
           tabSize: 2
           wordWrap: true
     Div_preview:
-      className: bg-white p-2 rounded border
+      className: p-2 rounded border
       RuntimePreview: this.props.preview

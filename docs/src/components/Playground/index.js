@@ -3,6 +3,7 @@ import { JXProvider } from 'jxml-react';
 import React, { useCallback, useState } from 'react';
 
 import Layout from './Layout.jxml';
+
 import Editor from '@monaco-editor/react';
 import IFrame from '../IFrame';
 import { loadJXML } from '../../libs/loadDocs';
@@ -25,9 +26,9 @@ const MicroEvent = {
   },
 };
 
-const RuntimePreview = (props) => (
-  <JXProvider {...props} context={{ components: { MicroEvent, IFrame } }} />
-);
+const RuntimePreview = (props) => {
+  return <JXProvider {...props} context={{ components: { MicroEvent, IFrame } }} />;
+};
 
 export default ({ open }) => {
   const [{ code, json }, setState] = useState({
@@ -64,7 +65,6 @@ export default ({ open }) => {
       />
       <Layout
         context={{ components: { Editor, RuntimePreview } }}
-        files={loadJXML}
         code={code}
         preview={json}
         onCodeChange={onCodeChange}

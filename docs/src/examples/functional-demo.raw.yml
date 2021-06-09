@@ -2,16 +2,16 @@
 ---
 version: 1.0
 
-remote:
-  # Default:
-  #   url: '/antd/remoteEntry.js'
-  #   scope: 'antd'
-  # Mui:
-  #   url: '/material/remoteEntry.js'
-  #   scope: 'material'
-  # Antd:
-  #   url: '/antd/remoteEntry.js'
-  #   scope: 'antd'
+# remote:
+#   Default:
+#     url: '/antd/remoteEntry.js'
+#     scope: 'antd'
+#   Mui:
+#     url: '/material/remoteEntry.js'
+#     scope: 'material'
+#   Antd:
+#     url: '/antd/remoteEntry.js'
+#     scope: 'antd'
 state:
   buttons:
     - label: Material UI 0
@@ -42,7 +42,7 @@ render:
   JXComponent.Render:
     onMapProps: |
       (props) => {
-        console.log(this);
+        console.log(this.state);
         return this.state?.buttons?.map((
           { 
             label, 

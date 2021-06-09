@@ -1,13 +1,12 @@
 import _ from 'lodash';
 import { isFirstLetterIsUpper } from './libs/utils';
-import { useJXContext } from './JXContext';
 
-export const transformPropValueStr = (key, value) => {
-  if (key === 'style' && !_.isPlainObject(value)) {
-    return undefined;
-  } else if (_.isString(value)) {
-    try {
-      const { bindScript } = useJXContext();
+export const transformPropValueStr = ({ key, value, context }) => {
+  try {
+    if (key === 'style' && !_.isPlainObject(value)) {
+      return undefined;
+    } else if (_.isString(value)) {
+      const { bindScript } = context;
       if ([/on[A-Z]\w+/.test(key)].every(Boolean)) {
         return bindScript(value);
       } else if ([/\$\{(\'|\")?\w.+\}(\'|\")?/.test(value)].every(Boolean)) {
@@ -17,36 +16,36 @@ export const transformPropValueStr = (key, value) => {
       } else {
         return bindScript(`\`${value}\``);
       }
-    } catch (error) {}
-  } else {
-    try {
+    } else {
       return value;
-    } catch (error) {}
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
-export function getProps(json) {
+export function getProps({ json, context }) {
   return Object.keys(json)
     .filter((name) => [!isFirstLetterIsUpper(name), name !== 'children'].every(Boolean))
     .reduce((props, name) => {
-      return { ...props, [name]: transformPropValueStr(name, json[name]) };
+      return { ...props, [name]: transformPropValueStr({ key: name, value: json[name], context }) };
     }, {});
 }
 
-export function getChildren(json) {
+export function getChildren({ json, context }) {
   return Object.keys(json)
     .filter((name) => [isFirstLetterIsUpper(name), name == 'children'].some(Boolean))
     .map((name) => {
       const obj = json[name];
       if (name === 'children') {
         if (_.isPlainObject(obj)) {
-          return transform(obj, name);
+          return transform({ json: obj, tagName: name, context });
         }
-        return transformPropValueStr(name, obj);
+        return transformPropValueStr({ key: name, value: obj, context });
       } else if (_.isPlainObject(obj)) {
-        return transform(obj, name);
+        return transform({ json: obj, tagName: name, context });
       } else {
-        const children = transformPropValueStr(name, obj);
+        const children = transformPropValueStr({ key: name, value: obj, context });
         const props = children || (_.isArray(children) && children.length > 0) ? { children } : {};
         return {
           component: name.split('_')[0],
@@ -57,9 +56,9 @@ export function getChildren(json) {
     });
 }
 
-export function transform(json, tagName = '_') {
-  const children = getChildren(json);
-  const _props = getProps(json);
+export function transform({ json, tagName = '_', context }) {
+  const children = getChildren({ json, context });
+  const _props = getProps({ json, context });
   const props =
     children.length > 0
       ? {

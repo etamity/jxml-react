@@ -5,13 +5,13 @@ import htmltags from './libs/htmltags';
 
 const getType = (type, components) => _.get(components, type) || htmltags(type);
 
-export function jsonToAst(json) {
+export function RenderAst({ json }) {
   const { EnvScope } = useJXContext();
   if (_.isPlainObject(json)) {
     const type = getType(json.component, EnvScope);
 
     const children = _.isArray(json.props.children)
-      ? json.props.children.map(jsonToAst)
+      ? json.props.children.map((child, index) => <RenderAst key={`ast-${index}`} json={child} />)
       : json.props.children;
     const props = children
       ? {
@@ -33,4 +33,4 @@ export function jsonToAst(json) {
   }
 }
 
-export default (json) => jsonToAst(json);
+export default RenderAst;

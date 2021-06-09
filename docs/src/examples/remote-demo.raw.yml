@@ -2,16 +2,16 @@
 ---
 version: 1.0
 
-remote:
-  # Default:
-  #   url: '/antd/remoteEntry.js'
-  #   scope: 'antd'
-  # Mui:
-  #   url: '/material/remoteEntry.js'
-  #   scope: 'material'
-  # Antd:
-  #   url: '/antd/remoteEntry.js'
-  #   scope: 'antd'
+# remote:
+#   Default:
+#     url: '/antd/remoteEntry.js'
+#     scope: 'antd'
+#   Mui:
+#     url: '/material/remoteEntry.js'
+#     scope: 'material'
+#   Antd:
+#     url: '/antd/remoteEntry.js'
+#     scope: 'antd'
 state:
   title: Antd UI Button
 
