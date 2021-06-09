@@ -117,7 +117,7 @@ const config = {
   },
   resolve: {
     alias: {
-      'jxml-react': path.resolve(process.cwd(), '/src'),
+      'jxml-react': path.resolve(process.cwd()),
     },
   },
 };
