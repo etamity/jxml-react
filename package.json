@@ -8,7 +8,8 @@
   "umd:main": "./dist/jxml-react.umd.js",
   "source": "src/index.js",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "keywords": [
     "react",
@@ -28,7 +29,7 @@
     "serve": "webpack serve --config docs/webpack.config.js",
     "build:docs": "webpack --mode=production --node-env=production --config docs/webpack.config.js",
     "build:modules": "webpack --config docs/webpack.module.config.js --mode=production --node-env=production",
-    "publish:bundle": "npm run build && npm version path && npm publish"
+    "publish:bundle": "npm run build && npm version patch && npm publish"
   },
   "author": "Joey.Etamity",
   "license": "MIT",
