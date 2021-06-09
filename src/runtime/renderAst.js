@@ -1,6 +1,5 @@
 import React from 'react';
 import _ from 'lodash';
-import { jsx } from 'react/jsx-runtime';
 import { useJXContext } from './JXContext';
 import htmltags from './libs/htmltags';
 
@@ -25,7 +24,7 @@ export function jsonToAst(json) {
           key: json.name,
         };
     try {
-      return jsx(type, props);
+      return React.createElement(type, props);
     } catch (error) {
       console.log(error);
     }
