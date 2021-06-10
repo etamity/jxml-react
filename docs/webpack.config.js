@@ -11,6 +11,7 @@ const images = require('remark-images');
 const emoji = require('remark-emoji');
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
 const deps = require('../package.json').dependencies;
+const rehypePrism = require('@mapbox/rehype-prism');
 
 const sharedReduce = Object.keys(deps).reduce((shared, pkg) => {
   Object.assign(shared, {
@@ -45,6 +46,7 @@ const config = {
     historyApiFallback: true,
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     new ModuleFederationPlugin({
       name: 'host',
       shared: sharedReduce,
@@ -108,6 +110,7 @@ const config = {
             loader: '@mdx-js/loader',
             options: {
               remarkPlugins: [images, emoji],
+              rehypePlugins: [rehypePrism],
             },
           },
         ],
@@ -127,7 +130,6 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
-    config.config.plugins.push(new MiniCssExtractPlugin());
   } else {
     config.mode = 'development';
   }

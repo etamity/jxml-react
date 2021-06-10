@@ -1,14 +1,14 @@
-# 🚀 JXML: Render components from Yaml file.
+## 🚀 JXML: Render components from Yaml file.
 
-# Install:
+### Install:
 
-```
+```bash
 npm i jxml-react
 ```
 
-## Add webpack config:
+### Add webpack config:
 
-```js
+```jsx
 module.exports = {
   module: {
     // ...
@@ -25,7 +25,7 @@ module.exports = {
 };
 ```
 
-# Example:
+### Example:
 
 Create a yaml file with extension `example.jxml`
 
@@ -63,13 +63,19 @@ import Example from 'jxml-react';
 export default () => <Example />;
 ```
 
-# Runtime Render:
+### Runtime Render:
 
 ```jsx
 import JXProvider from 'jxml-react';
 
 export default () => (
-  <JXProvider context={{ components: {}, scope: {}, thisContext: {} }}>
+  <JXProvider
+    context={{
+      components: {},
+      scope: {},
+      thisContext: {},
+    }}
+  >
     {`
 ---
 version: 1.0 

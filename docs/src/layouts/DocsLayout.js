@@ -12,18 +12,15 @@ export default ({ children }) => {
   return (
     <>
       {menuOpen && <Navigation routes={routes} />}
-      <div
-        className={`transition-all duration-150 relative ${
-          menuOpen ? 'ml-64 ease-in-in' : 'ml-0 ease-in-out'
-        }`}
-      >
+      <div className="relative md:ml-64 bg-blueGray-100">
         <AuthNavbar
           onClickMenuButton={() => {
             setMenuOpen(!menuOpen);
           }}
         />
         {/* Header */}
-        <div className="p-4 mx-auto w-full">{children}</div>
+
+        <div className="pt-4 px-2 mx-auto w-full">{children}</div>
       </div>
     </>
   );

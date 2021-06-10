@@ -2,7 +2,7 @@
 ---
 version: 1.0
 
-# remote:
+remote:
 #   Default:
 #     url: '/antd/remoteEntry.js'
 #     scope: 'antd'
