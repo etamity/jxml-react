@@ -1,5 +1,5 @@
 import { transform } from './transform';
-import RenderAst from './RenderAst';
+import renderAst from './renderAst';
 import { useJXContext } from './JXContext';
 
 export default ({ json }) => {
@@ -14,7 +14,7 @@ export default ({ json }) => {
       },
     });
   try {
-    return <RenderAst json={transformRender} />;
+    return renderAst({ json: transformRender });
   } catch (error) {
     console.log(error);
   }

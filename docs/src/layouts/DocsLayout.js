@@ -11,16 +11,18 @@ export default ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(true);
   return (
     <>
-      {menuOpen && <Navigation routes={routes} />}
-      <div className="relative md:ml-64 bg-blueGray-100">
+      {menuOpen && <Navigation routes={routes} className={``} />}
+      <div
+        className={`transition-all duration-150 relative bg-gray-100 ${
+          menuOpen ? 'ml-64 ease-in-in' : 'ml-0 ease-in-out'
+        }`}
+      >
         <AuthNavbar
           onClickMenuButton={() => {
             setMenuOpen(!menuOpen);
           }}
         />
-        {/* Header */}
-
-        <div className="pt-4 px-2 mx-auto w-full">{children}</div>
+        <div className="pt-4 px-2 mx-auto w-full bg-white">{children}</div>
       </div>
     </>
   );
