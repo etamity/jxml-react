@@ -52,7 +52,10 @@ const config = {
       shared: sharedReduce,
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public/index.html'),
+      template: path.resolve(
+        __dirname,
+        isProduction ? 'public/index.html' : 'public/index-dev.html',
+      ),
     }),
     new CopyPlugin({
       patterns: [
@@ -130,6 +133,7 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
+    config.output.publicPath = '/jxml-react';
   } else {
     config.mode = 'development';
   }
