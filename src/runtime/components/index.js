@@ -59,8 +59,7 @@ export const Pipe = ({ children, ...props }) => {
   )(props);
 };
 
-export const RemoteApp = (props) => {
-  const { url, module, scope } = props;
+export const RemoteApp = ({ url, module, scope, ...props }) => {
   const { ready, failed } = useDynamicScript({
     url: url,
   });
@@ -77,7 +76,7 @@ export const RemoteApp = (props) => {
 
   return (
     <Suspense fallback="Loading MicroApp">
-      <Component />
+      <Component {...props} />
     </Suspense>
   );
 };

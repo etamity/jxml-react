@@ -22,7 +22,7 @@ export default ({ children }) => {
             setMenuOpen(!menuOpen);
           }}
         />
-        <div className="pt-4 px-2 mx-auto w-full bg-white">{children}</div>
+        <div className="pt-6 px-2 mx-auto w-full bg-white">{children}</div>
       </div>
     </>
   );

@@ -1,12 +1,12 @@
 const mapDocs = (key, r) => {
-  const [dot, category, file] = key.split('/');
+  const [file, category] = key.split('/').reverse();
   const [name] = file.split('.');
   const Component = r(key).default;
-  // const { config } = r(key);
   const path = '/docs/' + category + '/' + name;
+  console.log(file, category.replace(/([a-z])([A-Z])/g, '$1 $2'));
   return {
     path: path.toLowerCase(),
-    name,
+    name: name.replace(/([a-z])([A-Z])/g, '$1 $2'),
     component: () => (
       <article className="mx-auto w-full prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
         <Component />
@@ -15,20 +15,54 @@ const mapDocs = (key, r) => {
   };
 };
 
+const mapDocRoutes = (key, r) => {
+  const [file, category] = key.split('/').reverse();
+  const [name] = file.split('.');
+  const Component = r(key).default;
+  const path = '/docs/' + category + '/' + name;
+  const categoryName = category.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+  const className = categoryName == 'examples' ? '' : 'mx-auto w-full prose';
+  return {
+    name: categoryName,
+    component: require('../layouts/DocsLayout').default,
+    path: '/docs/' + category.toLowerCase(),
+    routes: [
+      {
+        path: path.toLowerCase(),
+        icon: 'far fa-file-alt',
+        name: name.replace(/([a-z])([A-Z])/g, '$1 $2'),
+        component: () => (
+          <article className={className}>
+            <Component />
+          </article>
+        ),
+      },
+    ],
+  };
+};
+
 function importAll(r, map) {
   return r.keys().map((key) => map(key, r));
 }
 
-const documents = ((ctx) => {
-  let keys = ctx.keys();
-  let values = keys.map(ctx);
-  return keys.reduce((o, k, i) => {
-    o[k] = values[i];
-    return o;
+export default (context) => {
+  const docs = importAll(context, mapDocRoutes);
+  const transform = docs.reduce((root, next) => {
+    const route = root[next.name];
+    const routes = (route && route.routes && route.routes.concat(next.routes)) || next.routes;
+    const newRoute = {
+      ...root,
+      [next.name]: {
+        ...next,
+        routes: routes,
+      },
+    };
+    return newRoute;
   }, {});
-})(require.context('../content', true, /.mdx*/));
-
-export default importAll(require.context('../content', true, /.mdx*/), mapDocs);
+  return Object.keys(transform).map((name) => ({
+    ...transform[name],
+  }));
+};
 
 const mapJxml = (key, r) => {
   return {

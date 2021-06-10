@@ -4,7 +4,7 @@ import { useJXContext } from './JXContext';
 
 export default ({ json }) => {
   const { render } = json;
-  const { bindScript } = useJXContext();
+  const { bindScript, EnvScope } = useJXContext();
   const transformRender =
     render &&
     transform({
@@ -14,7 +14,7 @@ export default ({ json }) => {
       },
     });
   try {
-    return renderAst({ json: transformRender });
+    return renderAst(transformRender, EnvScope);
   } catch (error) {
     console.log(error);
   }

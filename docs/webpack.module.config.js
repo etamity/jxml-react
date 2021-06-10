@@ -95,8 +95,33 @@ const configAntd = {
   ...modules,
 };
 
+const configSampleApp = {
+  entry: [path.resolve(__dirname, './modules/sampleapp-entry.js')],
+  output: {
+    path: path.resolve(__dirname, 'dist/sampleapp'),
+  },
+  devServer: {
+    open: false,
+    host: 'localhost',
+    hot: true,
+  },
+  plugins: [
+    new ModuleFederationPlugin({
+      name: 'sampleapp', // this name needs to match with the entry name
+      filename: 'remoteEntry.js',
+      exposes: {
+        './default': path.resolve(__dirname, './modules/sampleapp/index.js'),
+      },
+      shared: sharedReduce,
+    }),
+    // Add your plugins here
+    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+  ],
+  ...modules,
+};
+
 module.exports = () => {
-  const allConfigs = [configMaterial, configAntd].map((config) => {
+  const allConfigs = [configMaterial, configAntd, configSampleApp].map((config) => {
     if (isProduction) {
       config.mode = 'production';
 

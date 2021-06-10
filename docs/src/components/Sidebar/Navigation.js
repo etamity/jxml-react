@@ -5,8 +5,8 @@ const renderMenuItem = (route, i) => (
   <li key={'li-item-' + i} className="items-center">
     <Link
       className={
-        'text-xs uppercase py-3 font-bold block ' +
-        (window.location.href.indexOf('/admin/dashboard') !== -1
+        'text-xs py-3 font-bold block ' +
+        (window.location.href.indexOf(route.path) !== -1
           ? 'text-lightBlue-500 hover:text-lightBlue-600'
           : 'text-blueGray-700 hover:text-blueGray-500')
       }
@@ -16,9 +16,7 @@ const renderMenuItem = (route, i) => (
         className={
           route.icon +
           ' mr-2 text-sm ' +
-          (window.location.href.indexOf('/admin/dashboard') !== -1
-            ? 'opacity-75'
-            : 'text-blueGray-300')
+          (window.location.href.indexOf(route.path) !== -1 ? 'opacity-75' : 'text-blueGray-300')
         }
       ></i>
       {route.name}

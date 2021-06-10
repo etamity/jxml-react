@@ -1,17 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
-import { useJXContext } from './JXContext';
 import htmltags from './libs/htmltags';
 
 const getType = (type, components) => _.get(components, type) || htmltags(type);
 
-export function RenderAst({ json }) {
-  const { EnvScope } = useJXContext();
+export function renderAst(json, EnvScope) {
   if (_.isPlainObject(json)) {
     const type = getType(json.component, EnvScope);
 
     const children = _.isArray(json.props.children)
-      ? json.props.children.map((child, index) => <RenderAst key={`ast-${index}`} json={child} />)
+      ? json.props.children.map((child) => renderAst(child, EnvScope))
       : json.props.children;
     const props = children
       ? {
@@ -33,4 +31,4 @@ export function RenderAst({ json }) {
   }
 }
 
-export default RenderAst;
+export default renderAst;

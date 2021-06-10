@@ -1,0 +1,14 @@
+---
+version: 1.0
+
+state:
+  pageTitle: Page title
+
+props:
+  title: Default Button
+
+render:
+  JXComponent.RemoteApp:
+    url: '/sampleapp/remoteEntry.js'
+    scope: 'sampleapp'
+    # title: pass props to remote app

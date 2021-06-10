@@ -13,7 +13,7 @@ export function loadComponent(scope, module = './default') {
     }
     try {
       await container.init(__webpack_share_scopes__.default);
-      const factory = await window[scope].get(module);
+      const factory = await container.get(module);
       const Module = factory();
       return Module;
     } catch (error) {
@@ -88,6 +88,8 @@ export const loadRemoteLib = async (props) => {
   const { url, module, scope } = props;
   await loadScript(url);
   const loadModule = loadComponent(scope, module);
+
   const remoteModule = await loadModule();
+
   return remoteModule;
 };

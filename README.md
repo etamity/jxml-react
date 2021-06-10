@@ -29,7 +29,7 @@ module.exports = {
 
 # Example:
 
-Create a yaml file with extension `example.jxml`
+Create a yaml file with extension `./example.jxml`
 
 ```yaml
 ---
@@ -68,7 +68,7 @@ export default () => <Example />;
 # Runtime Render:
 
 ```jsx
-import JXProvider from 'jxml-react';
+import { JXProvider } from 'jxml-react';
 
 export default () => (
   <JXProvider context={{ components: {}, scope: {}, thisContext: {} }}>

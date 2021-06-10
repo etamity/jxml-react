@@ -1,0 +1,26 @@
+## 🚀 JXML: Render components from Yaml file.
+
+### Install:
+
+```bash
+npm i jxml-react
+```
+
+### Add webpack config:
+
+```jsx
+module.exports = {
+  module: {
+    // ...
+
+    rules: [
+      // ...
+
+      {
+        test: /\.jxml?$/,
+        use: ['babel-loader', 'jxml-react/loader'],
+      },
+    ],
+  },
+};
+```

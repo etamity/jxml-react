@@ -1,0 +1,28 @@
+### Runtime Render:
+
+`jxml-react` support runtime render by passing yaml format string as children.
+
+##### Example:
+
+```jsx
+import JXProvider from 'jxml-react';
+
+const yamlStr = `
+---
+version: 1.0 
+render: 
+  Button: Default Button
+`;
+
+export default () => (
+  <JXProvider
+    context={{
+      components: {},
+      scope: {},
+      thisContext: {},
+    }}
+  >
+    {yamlStr}
+  </JXProvider>
+);
+```

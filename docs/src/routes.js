@@ -1,24 +1,19 @@
 import loadDocs from './libs/loadDocs';
 
 export default [
+  ...loadDocs(require.context('./content', true, /.mdx*/)),
   {
-    name: 'Getting Started',
-    path: '/docs',
+    path: '/playground',
     component: require('./layouts/DocsLayout').default,
     routes: [
-      ...loadDocs,
       {
-        path: '/docs/playground',
-        component: import('./components/Playground'),
-      },
-      {
-        path: '/',
-        redirect: '/docs/playground',
+        path: '/playground/livecode',
+        component: import('./views/Playground'),
       },
     ],
   },
   {
     path: '/',
-    redirect: '/docs/playground',
+    redirect: '/playground/livecode',
   },
 ];

@@ -27,12 +27,14 @@ async function fetchModules(remote, setModules) {
       }),
       {},
     );
-
-    setModules({ ...modulesMap, ...modulesMap.Default });
+    const { Default } = modulesMap;
+    setModules({ ...modulesMap, ...Default });
   } else {
     setModules({});
   }
 }
+const isAllModuleLoaded = (remote, modules) =>
+  _.isEqual(Object.keys(remote).sort(), Object.keys(modules).sort());
 
 const JXProvider = ({ context, children, ...props }) => {
   if (!children) {
@@ -71,7 +73,9 @@ const JXProvider = ({ context, children, ...props }) => {
   const bindScript = bindScopeEnv(EnvScope, ThisContent);
 
   useEffect(() => {
-    fetchModules(remote, setModules);
+    if (!remote || !modules || !isAllModuleLoaded(remote, modules)) {
+      fetchModules(remote, setModules);
+    }
     _setState(jx.state);
     try {
       onMount && bindScript(onMount)();
@@ -86,7 +90,7 @@ const JXProvider = ({ context, children, ...props }) => {
       }
     };
   }, [onMount, onUnMount, remote, jx.state]);
-
+  console.log('Default', modules);
   try {
     return (
       <ErrorBoundary>
