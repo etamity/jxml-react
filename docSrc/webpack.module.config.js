@@ -48,7 +48,7 @@ const modules = {
 const configMaterial = {
   entry: [path.resolve(__dirname, './modules/material-entry.js')],
   output: {
-    path: path.resolve(__dirname, 'dist/material'),
+    path: path.resolve(__dirname, 'public/material'),
   },
   devServer: {
     open: false,
@@ -73,7 +73,7 @@ const configMaterial = {
 const configAntd = {
   entry: [path.resolve(__dirname, './modules/antd-entry.js')],
   output: {
-    path: path.resolve(__dirname, 'dist/antd'),
+    path: path.resolve(__dirname, 'public/antd'),
   },
   devServer: {
     open: false,
@@ -98,7 +98,7 @@ const configAntd = {
 const configSampleApp = {
   entry: [path.resolve(__dirname, './modules/sampleapp-entry.js')],
   output: {
-    path: path.resolve(__dirname, 'dist/sampleapp'),
+    path: path.resolve(__dirname, 'public/sampleapp'),
   },
   devServer: {
     open: false,

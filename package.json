@@ -26,9 +26,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "microbundle --define process.env.NODE_ENV=production --jsx React.createElement --output dist",
-    "serve": "webpack serve --config docs/webpack.config.js",
-    "build:docs": "webpack --mode=production --node-env=production --config docs/webpack.config.js",
-    "build:modules": "webpack --config docs/webpack.module.config.js --mode=production --node-env=production",
+    "serve": "webpack serve --config docSrc/webpack.config.js",
+    "build:docs": "webpack --mode=production --node-env=production --config docSrc/webpack.config.js",
+    "build:modules": "webpack --config docSrc/webpack.module.config.js --mode=production --node-env=production",
     "publish:bundle": "npm run build && npm version patch && npm publish"
   },
   "author": "Joey.Etamity",
