@@ -1,6 +1,7 @@
 {
   "name": "jxml-react",
   "version": "1.0.9",
+  "homepage": "https://etamity.github.io/jxml-react",
   "description": "Render react view from Yaml file",
   "repository": "etamity/jxml-react",
   "main": "./dist/jxml-react.js",
