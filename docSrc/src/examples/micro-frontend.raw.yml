@@ -9,6 +9,6 @@ props:
 
 render:
   JXComponent.RemoteApp:
-    url: '/sampleapp/remoteEntry.js'
+    url: 'https://etamity.github.io/jxml-react/sampleapp/remoteEntry.js'
     scope: 'sampleapp'
     # title: pass props to remote app

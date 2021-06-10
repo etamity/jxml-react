@@ -3,13 +3,13 @@ version: 1.0
 
 remote:
   Default:
-    url: '/antd/remoteEntry.js'
+    url: 'https://etamity.github.io/jxml-react/antd/remoteEntry.js'
     scope: 'antd'
   Mui:
-    url: '/material/remoteEntry.js'
+    url: 'https://etamity.github.io/jxml-react/material/remoteEntry.js'
     scope: 'material'
   Antd:
-    url: '/antd/remoteEntry.js'
+    url: 'https://etamity.github.io/jxml-react/antd/remoteEntry.js'
     scope: 'antd'
 
 state:
