@@ -1,20 +1,3 @@
-const mapDocs = (key, r) => {
-  const [file, category] = key.split('/').reverse();
-  const [name] = file.split('.');
-  const Component = r(key).default;
-  const path = '/docs/' + category + '/' + name;
-  console.log(file, category.replace(/([a-z])([A-Z])/g, '$1 $2'));
-  return {
-    path: path.toLowerCase(),
-    name: name.replace(/([a-z])([A-Z])/g, '$1 $2'),
-    component: () => (
-      <article className="mx-auto w-full prose prose-sm sm:prose lg:prose-lg xl:prose-xl">
-        <Component />
-      </article>
-    ),
-  };
-};
-
 const mapDocRoutes = (key, r) => {
   const [file, category] = key.split('/').reverse();
   const [name] = file.split('.');
@@ -75,4 +58,4 @@ export const loadJXML = importAll(
   mapJxml,
 );
 
-export const urlWithBase = (url) => (isProduction ? `/jxml-react/${url}` : url);
+export const urlWithBase = (url) => (isProduction ? `/jxml-react${url}` : url);
