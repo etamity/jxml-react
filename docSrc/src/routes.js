@@ -14,6 +14,6 @@ export default [
   },
   {
     path: urlWithBase('/'),
-    redirect: '/playground/livecode',
+    redirect: urlWithBase('/playground/livecode'),
   },
 ];
