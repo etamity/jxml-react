@@ -13,7 +13,7 @@ export default [
     ],
   },
   {
-    path: urlWithBase('/'),
+    path: '/',
     redirect: urlWithBase('/playground/livecode'),
   },
 ];
