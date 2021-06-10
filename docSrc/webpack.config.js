@@ -133,7 +133,7 @@ const config = {
 module.exports = () => {
   if (isProduction) {
     config.mode = 'production';
-    config.output.publicPath = '/jxml-react';
+    config.output.publicPath = '/jxml-react/';
   } else {
     config.mode = 'development';
   }
