@@ -28,7 +28,7 @@ const mapDocRoutes = (key, r) => {
     path: '/docs/' + category.toLowerCase(),
     routes: [
       {
-        path: path.toLowerCase(),
+        path: urlWithBase(path.toLowerCase()),
         icon: 'far fa-file-alt',
         name: name.replace(/([a-z])([A-Z])/g, '$1 $2'),
         component: () => (
@@ -74,3 +74,5 @@ export const loadJXML = importAll(
   require.context('!!raw-loader!../examples', true, /.raw.yml*/),
   mapJxml,
 );
+
+export const urlWithBase = (url) => (isProduction ? `/jxml-react/${url}` : url);

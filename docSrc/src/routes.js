@@ -1,19 +1,19 @@
-import loadDocs from './libs/loadDocs';
+import loadDocs, { urlWithBase } from './libs/loadDocs';
 
 export default [
   ...loadDocs(require.context('./content', true, /.mdx*/)),
   {
-    path: '/playground',
+    path: urlWithBase('/playground'),
     component: require('./layouts/DocsLayout').default,
     routes: [
       {
-        path: '/playground/livecode',
+        path: urlWithBase('/playground/livecode'),
         component: import('./views/Playground'),
       },
     ],
   },
   {
-    path: '/',
+    path: urlWithBase('/'),
     redirect: '/playground/livecode',
   },
 ];

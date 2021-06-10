@@ -47,6 +47,9 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
+    new webpack.DefinePlugin({
+      isProduction: JSON.stringify(isProduction),
+    }),
     new ModuleFederationPlugin({
       name: 'host',
       shared: sharedReduce,
