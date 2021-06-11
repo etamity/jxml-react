@@ -90,7 +90,7 @@ const JXProvider = ({ context, children, ...props }) => {
       }
     };
   }, [onMount, onUnMount, remote, jx.state]);
-  console.log('Default', modules);
+
   try {
     return (
       <ErrorBoundary>

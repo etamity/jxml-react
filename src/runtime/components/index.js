@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Suspense, useEffect, lazy, useState, useCallback } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useJXContext } from '../JXContext';
 import { useDynamicScript, loadComponent } from '../libs';
@@ -23,17 +23,17 @@ export const Connect = ({ children = [], onMapStore }) => {
 };
 
 export const Render = ({ children, onMapProps, onMount, onUnMount, ...ownProps }) => {
-  const [props, setProps] = useState(ownProps);
+  const [props, setProps] = React.useState(ownProps);
   const context = {
     props,
-    setProps: useCallback(
+    setProps: React.useCallback(
       (newState) => {
         setProps(produce(newState));
       },
       [setProps],
     ),
   };
-  useEffect(() => {
+  React.useEffect(() => {
     onMount && onMount(context);
     return () => {
       onUnMount && onUnMount(context);
@@ -72,11 +72,11 @@ export const RemoteApp = ({ url, module, scope, ...props }) => {
     return <h2>Failed to load dynamic script: {url}</h2>;
   }
 
-  const Component = lazy(loadComponent(scope, module));
+  const Component = React.lazy(loadComponent(scope, module));
 
   return (
-    <Suspense fallback="Loading MicroApp">
+    <React.Suspense fallback="Loading MicroApp">
       <Component {...props} />
-    </Suspense>
+    </React.Suspense>
   );
 };
