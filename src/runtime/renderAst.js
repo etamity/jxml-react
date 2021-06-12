@@ -4,6 +4,8 @@ import htmltags from './libs/htmltags';
 
 const getType = (type, components) => _.get(components, type) || htmltags(type);
 
+const ifLowerCase = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!#\*\?])(?=.{8,})/;
+
 export function renderAst(json, EnvScope) {
   if (_.isPlainObject(json)) {
     const type = getType(json.component, EnvScope);

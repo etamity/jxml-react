@@ -21,3 +21,5 @@ render:
               state.pageTitle = 'Hello World!'
           })
       }
+  JxmlView:
+    url: https://raw.githubusercontent.com/etamity/jxml-react/master/docSrc/src/examples/micro-frontend.raw.yml

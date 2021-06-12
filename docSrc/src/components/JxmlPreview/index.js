@@ -22,8 +22,29 @@ const MicroEvent = {
     });
   },
 };
+
+const JxmlView = ({ url, ...props }) => {
+  const [jxml, setJxml] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(url);
+      const jxmlText = await response.text();
+      const jxmlJson = Yaml.load(jxmlText);
+      setJxml(jxmlJson);
+    }
+    fetchData();
+  }, [setJxml]);
+  return (
+    <JXProvider
+      children={jxml}
+      {...props}
+      context={{ components: { MicroEvent, IFrame, JxmlView } }}
+    />
+  );
+};
+
 const RuntimePreview = (props) => {
-  return <JXProvider {...props} context={{ components: { MicroEvent, IFrame } }} />;
+  return <JXProvider {...props} context={{ components: { MicroEvent, IFrame, JxmlView } }} />;
 };
 
 const transformCode = (jxml) => ({

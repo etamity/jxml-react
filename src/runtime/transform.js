@@ -7,7 +7,7 @@ export const transformPropValueStr = ({ key, value, context }) => {
       return undefined;
     } else if (_.isString(value)) {
       const { bindScript } = context;
-      if ([/on[A-Z]\w+/.test(key)].every(Boolean)) {
+      if ([/^\S*\bon[A-Z]\w+/.test(key)].every(Boolean)) {
         return bindScript(value);
       } else if ([/\$\{(\'|\")?\w.+\}(\'|\")?/.test(value)].every(Boolean)) {
         return bindScript(`\`${value}\``);
@@ -46,29 +46,36 @@ export function getChildren({ json, context }) {
         return transform({ json: obj, tagName: name, context });
       } else {
         const children = transformPropValueStr({ key: name, value: obj, context });
+        const [componentType, componentName] = name.split('_');
         const props = children || (_.isArray(children) && children.length > 0) ? { children } : {};
+
         return {
-          component: name.split('_')[0],
+          component: componentType,
           name,
-          props,
+          props: {
+            name: componentName,
+            ...props,
+          },
         };
       }
     });
 }
 
-export function transform({ json, tagName = '_', context }) {
+export function transform({ json, name = '_', context }) {
   const children = getChildren({ json, context });
   const _props = getProps({ json, context });
+  const [componentType, componentName = 'jxml-root'] = name.split('_');
   const props =
     children.length > 0
       ? {
           ..._props,
+          name: componentName,
           children,
         }
-      : _props;
+      : { ..._props, name: componentName };
   return {
-    component: tagName.split('_')[0],
-    name: tagName,
+    component: componentType,
+    name,
     props,
   };
 }
