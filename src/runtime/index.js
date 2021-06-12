@@ -41,7 +41,6 @@ const JXProvider = ({ context, children, ...props }) => {
     return React.Fragment;
   }
   const jx = children;
-  const { onMount, onUnMount, remote } = jx;
   const { components, scope, thisContext } = context || {};
   const [state, _setState] = useState(jx.state);
   const [modules, setModules] = useState(null);
@@ -61,7 +60,7 @@ const JXProvider = ({ context, children, ...props }) => {
     ReactRedux,
   };
 
-  const ThisContent = {
+  const ThisContext = {
     ...thisContext,
     setState,
     state,
@@ -70,9 +69,9 @@ const JXProvider = ({ context, children, ...props }) => {
       ...props,
     },
   };
-  const bindScript = bindScopeEnv(EnvScope, ThisContent);
-
+  const bindScript = bindScopeEnv(EnvScope, ThisContext);
   useEffect(() => {
+    const { onMount, onUnMount, remote } = jx;
     if (!remote || !modules || !isAllModuleLoaded(remote, modules)) {
       fetchModules(remote, setModules);
     }
@@ -89,7 +88,7 @@ const JXProvider = ({ context, children, ...props }) => {
         console.error(error);
       }
     };
-  }, [onMount, onUnMount, remote, jx.state]);
+  }, [jx]);
 
   try {
     return (
@@ -97,6 +96,7 @@ const JXProvider = ({ context, children, ...props }) => {
         <JXContext.Provider
           value={{
             bindScript,
+            ThisContext,
             EnvScope,
           }}
         >

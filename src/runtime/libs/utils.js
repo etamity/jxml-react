@@ -20,7 +20,7 @@ export const importLibs = (imports) =>
     )
     .join('\n');
 
-export const bindScopeEnv = function (scope = {}, context = {}) {
+export const bindScopeEnv = function (scope = {}, context = { state: {}, props: {} }) {
   return (code) => {
     const sandbox = new Function(Object.keys(scope).join(','), `return ${code}`);
     const scopedSandbox = sandbox.apply(context, Object.values(scope));

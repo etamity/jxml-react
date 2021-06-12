@@ -1,0 +1,5 @@
+version: 1.0
+
+render:
+  JxmlView:
+    url: https://raw.githubusercontent.com/etamity/jxml-react/master/docSrc/src/examples/jxmlview.raw.yml

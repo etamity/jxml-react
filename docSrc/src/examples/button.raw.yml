@@ -1,0 +1,19 @@
+---
+version: 1.0
+
+state:
+  title: Default Button
+
+render:
+  Button:
+    style:
+      background: blue
+      color: white
+      padding: 10px
+    children: this.state.title
+    onClick: |
+      () => {
+          this.setState(state=> {
+              state.title = 'Hello World!'
+          })
+      }

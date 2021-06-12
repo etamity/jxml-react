@@ -1,13 +1,12 @@
 import _ from 'lodash';
 import { isFirstLetterIsUpper } from './libs/utils';
-
-export const transformPropValueStr = ({ key, value, context }) => {
+export const transformPropValueStr = ({ propName, value, context }) => {
   try {
-    if (key === 'style' && !_.isPlainObject(value)) {
+    if (propName === 'style' && !_.isPlainObject(value)) {
       return undefined;
     } else if (_.isString(value)) {
       const { bindScript } = context;
-      if ([/^\S*\bon[A-Z]\w+/.test(key)].every(Boolean)) {
+      if ([/^\S*\bon[A-Z]\w+/.test(propName)].every(Boolean)) {
         return bindScript(value);
       } else if ([/\$\{(\'|\")?\w.+\}(\'|\")?/.test(value)].every(Boolean)) {
         return bindScript(`\`${value}\``);
@@ -28,7 +27,10 @@ export function getProps({ json, context }) {
   return Object.keys(json)
     .filter((name) => [!isFirstLetterIsUpper(name), name !== 'children'].every(Boolean))
     .reduce((props, name) => {
-      return { ...props, [name]: transformPropValueStr({ key: name, value: json[name], context }) };
+      return {
+        ...props,
+        [name]: transformPropValueStr({ propName: name, value: json[name], context }),
+      };
     }, {});
 }
 
@@ -41,21 +43,18 @@ export function getChildren({ json, context }) {
         if (_.isPlainObject(obj)) {
           return transform({ json: obj, tagName: name, context });
         }
-        return transformPropValueStr({ key: name, value: obj, context });
+        return transformPropValueStr({ propName: name, value: obj, context });
       } else if (_.isPlainObject(obj)) {
         return transform({ json: obj, tagName: name, context });
       } else {
-        const children = transformPropValueStr({ key: name, value: obj, context });
+        const children = transformPropValueStr({ propName: name, value: obj, context });
         const [componentType, componentName] = name.split('_');
         const props = children || (_.isArray(children) && children.length > 0) ? { children } : {};
 
         return {
           component: componentType,
           name,
-          props: {
-            name: componentName || name,
-            ...props,
-          },
+          props,
         };
       }
     });
@@ -69,10 +68,9 @@ export function transform({ json, tagName = '_', context }) {
     children.length > 0
       ? {
           ..._props,
-          name: componentName || tagName,
           children,
         }
-      : { ..._props, name: componentName || tagName };
+      : _props;
   return {
     component: componentType,
     name: tagName,

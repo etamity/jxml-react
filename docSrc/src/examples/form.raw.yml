@@ -1,0 +1,11 @@
+version: 1.0
+
+state:
+  name: Joey
+  gender: male
+
+render:
+  Form:
+    Input_name:
+      type: text
+      defaultValue: this.state.name

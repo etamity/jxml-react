@@ -7,7 +7,6 @@ export default () => {
   const [code, setCode] = useState(loadJXML[0].file);
   const onChangeFile = useCallback((file) => {
     setCode(file.file);
-    console.log(file.file);
   });
   return (
     <>
