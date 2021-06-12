@@ -53,7 +53,7 @@ export function getChildren({ json, context }) {
           component: componentType,
           name,
           props: {
-            name: componentName,
+            name: componentName || name,
             ...props,
           },
         };
@@ -61,21 +61,21 @@ export function getChildren({ json, context }) {
     });
 }
 
-export function transform({ json, name = '_', context }) {
+export function transform({ json, tagName = '_', context }) {
   const children = getChildren({ json, context });
   const _props = getProps({ json, context });
-  const [componentType, componentName = 'jxml-root'] = name.split('_');
+  const [componentType, componentName] = tagName.split('_');
   const props =
     children.length > 0
       ? {
           ..._props,
-          name: componentName,
+          name: componentName || tagName,
           children,
         }
-      : { ..._props, name: componentName };
+      : { ..._props, name: componentName || tagName };
   return {
     component: componentType,
-    name: componentName,
+    name: tagName,
     props,
   };
 }
