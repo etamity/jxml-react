@@ -75,7 +75,7 @@ export function transform({ json, name = '_', context }) {
       : { ..._props, name: componentName };
   return {
     component: componentType,
-    name,
+    name: componentName,
     props,
   };
 }
