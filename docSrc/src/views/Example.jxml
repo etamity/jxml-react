@@ -8,14 +8,14 @@ props:
   title: Default Button
 
 render:
-  H1: this.state.pageTitle
+  H1: !!js this.state.pageTitle
   Button:
     style:
       background: blue
       color: white
       padding: 10px
-    children: this.props.title
-    onClick: |
+    children: !!js this.props.title
+    onClick: !!js |
       () => {
           this.setState(state=> {
               state.pageTitle = 'Hello World!'

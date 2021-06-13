@@ -1,4 +1,5 @@
 import loadDocs, { urlWithBase } from './libs/loadDocs';
+import Example from './views/Example.jxml';
 
 export default [
   ...loadDocs(require.context('./content', true, /.mdx*/)),
@@ -9,6 +10,10 @@ export default [
       {
         path: urlWithBase('/playground/livecode'),
         component: import('./views/Playground'),
+      },
+      {
+        path: urlWithBase('/playground/example'),
+        component: Example,
       },
     ],
   },

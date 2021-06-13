@@ -3,7 +3,7 @@ module.exports = function jxLoader(src) {
   try {
     result = `
     import { JXProvider } from 'jxml-react';
-    export default ({ context, ...props }) => <JXProvider context={context} {...props} children={${src}}/>
+    export default ({ context, ...props }) => <JXProvider context={context} {...props} children={\`${src}\`}/>
     `;
 
     return result;

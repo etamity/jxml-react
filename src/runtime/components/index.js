@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useJXContext } from '../JXContext';
 import { useDynamicScript, loadComponent } from '../libs';
-import JXView from '../';
+import JXProvider from '../index';
 import produce from 'immer';
 const mergeProps = (child, props) => {
   return {
@@ -96,5 +96,5 @@ export const JxmlView = ({ url, ...props }) => {
     }
     fetchData();
   }, [url]);
-  return <JXView children={jxml} {...props} />;
+  return <JXProvider children={jxml} {...props} />;
 };
