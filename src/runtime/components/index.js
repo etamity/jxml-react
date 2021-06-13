@@ -41,7 +41,6 @@ export const Render = ({ children, onMapProps, onMount, onUnMount, ...ownProps }
   }, []);
 
   const mapProps = onMapProps && onMapProps(context);
-  console.log('mapProps', mapProps);
   const renderPropsArray = () => mapProps.map((props) => mergeChildrenProps(children, props));
   const renderProps = () => mergeChildrenProps(children, mapProps);
   return _.isArray(mapProps) ? renderPropsArray() : renderProps();

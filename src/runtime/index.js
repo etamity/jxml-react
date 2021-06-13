@@ -18,7 +18,7 @@ export default ({ children, ...props }) => {
       console.error(error.message);
     }
   }, [children]);
-  console.log(jxml);
+
   if (!jxml) {
     return null;
   }
