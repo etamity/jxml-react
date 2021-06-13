@@ -23,8 +23,8 @@ render:
     children: Material UI Button
   Antd.Button:
     type: primary
-    children: this.state.title
-    onClick: |
+    children: !!js this.state.title
+    onClick: !!js |
       () => {
         this.setState(state => {
             state.title = 'state changed!';

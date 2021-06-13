@@ -21,10 +21,9 @@ export const importLibs = (imports) =>
     .join('\n');
 
 export const bindScopeEnv = function (scope, context) {
-  return (code, props = {}) => {
-    const combinedScope = { ...props, ...scope };
-    const sandbox = new Function(Object.keys(combinedScope).join(','), `return ${code}`);
-    const scopedSandbox = sandbox.apply(context, Object.values(combinedScope));
+  return (code) => {
+    const sandbox = new Function(Object.keys(scope).join(','), `return ${code}`);
+    const scopedSandbox = sandbox.apply(context, Object.values(scope));
     return scopedSandbox && scopedSandbox.bind ? scopedSandbox.bind(context) : scopedSandbox;
   };
 };

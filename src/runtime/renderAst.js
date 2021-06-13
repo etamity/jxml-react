@@ -4,14 +4,13 @@ import htmltags from './libs/htmltags';
 
 const getType = (type, components) => _.get(components, type) || htmltags(type);
 
-const ifLowerCase = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!#\*\?])(?=.{8,})/;
-
-export function renderAst(json, EnvScope) {
+export function renderAst(json, context) {
   if (_.isPlainObject(json)) {
+    const { EnvScope } = context;
     const type = getType(json.component, EnvScope);
 
     const children = _.isArray(json.props.children)
-      ? json.props.children.map((child) => renderAst(child, EnvScope))
+      ? json.props.children.map((child) => renderAst(child, context))
       : json.props.children;
     const props = children
       ? {

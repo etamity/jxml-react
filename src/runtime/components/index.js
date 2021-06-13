@@ -3,9 +3,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useJXContext } from '../JXContext';
 import { useDynamicScript, loadComponent } from '../libs';
+import JXView from '../';
 import produce from 'immer';
-import { map } from 'ramda';
-
 const mergeProps = (child, props) => {
   return {
     ...child,
@@ -40,7 +39,9 @@ export const Render = ({ children, onMapProps, onMount, onUnMount, ...ownProps }
       onUnMount && onUnMount(context);
     };
   }, []);
+
   const mapProps = onMapProps && onMapProps(context);
+  console.log('mapProps', mapProps);
   const renderPropsArray = () => mapProps.map((props) => mergeChildrenProps(children, props));
   const renderProps = () => mergeChildrenProps(children, mapProps);
   return _.isArray(mapProps) ? renderPropsArray() : renderProps();
@@ -80,4 +81,21 @@ export const RemoteApp = ({ url, module, scope, ...props }) => {
       <Component {...props} />
     </React.Suspense>
   );
+};
+
+export const JxmlView = ({ url, ...props }) => {
+  const [jxml, setJxml] = React.useState(null);
+  React.useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(url);
+      const jxmlText = await response.text();
+      try {
+        setJxml(jxmlText);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchData();
+  }, [url]);
+  return <JXView children={jxml} {...props} />;
 };

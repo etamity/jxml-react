@@ -5,9 +5,9 @@ state:
   pageTitle: Page title
 
 props:
-  title: Default Button
+  title: JXML VIEW
 
 render:
-  JxmlView:
-    title: this.props.title
+  JXComponent.JxmlView:
+    title: !!js this.props.title
     url: https://raw.githubusercontent.com/etamity/jxml-react/master/docSrc/src/examples/micro-frontend.raw.yml

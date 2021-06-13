@@ -21,13 +21,15 @@ render:
   Antd.Button:
     type: primary
     children: Antd UI Button
-    onClick: |
+    onClick: !!js |
       () => {
         const button = {
           label: `Material UI ${this.state.buttons.length}`,
-          color: 'secondary',
+          color: 'primary',
           variant: 'contained',
-          onClick: (e) => console.log(button.label),
+          onClick: (e) => {
+            console.log(button.label)
+            },
         };
         const buttons = [...this.state.buttons, button];
         this.setState(state => {
@@ -35,21 +37,17 @@ render:
         });
       }
   JXComponent.Render:
-    onMapProps: |
+    onMapProps: !!js |
       (props) => {
-        console.log(this.state);
-        return this.state.buttons.map((
-          { 
-            label, 
-            ...props
-          }, 
-          index) =>  {
+        console.log(props);
+        return this.state.buttons.map((button,index) =>  {
             return {
               key: index,
-              children: label
+              children: button.label,
+              ...button,
             };
           });
       }
     Mui.Button:
       variant: contained
-      color: secondary
+      color: primary

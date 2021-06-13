@@ -11,6 +11,7 @@ remote:
   Antd:
     url: 'https://etamity.github.io/jxml-react/antd/remoteEntry.js'
     scope: 'antd'
+
 state:
   buttons:
     - label: Material UI 0
@@ -19,6 +20,7 @@ state:
     - label: Material UI 1
       variant: contained
       color: green
+
 render:
   className: grid grid-rows
   Button:
@@ -26,14 +28,14 @@ render:
     type: primary
     danger: 'true'
     children: test
-    onClick: |
+    onClick: !!js |
       () => {
         MicroEvent.emit('someapp:accountLookup', { accountId: '12345'});
       }
   Antd.Button:
     type: primary
     children: Antd UI Button
-    onClick: |
+    onClick: !!js |
       () => {
         const button = {
           label: `Material UI ${this.state.buttons.length}`,
@@ -47,7 +49,7 @@ render:
         });
       }
   JXComponent.Render:
-    onMapProps: |
+    onMapProps: !!js |
       () => {
         return this.state?.buttons?.map((
           { 

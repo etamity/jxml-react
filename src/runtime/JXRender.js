@@ -2,19 +2,16 @@ import { transform } from './transform';
 import renderAst from './renderAst';
 import { useJXContext } from './JXContext';
 
-export default ({ render, ...ownProps }) => {
-  const { bindScript, EnvScope } = useJXContext();
+export default ({ render }) => {
+  const context = useJXContext();
   const transformRender =
     render &&
     transform({
       json: render,
-      context: {
-        bindScript,
-        ownProps,
-      },
+      context,
     });
   try {
-    return renderAst(transformRender, EnvScope, ownProps);
+    return renderAst(transformRender, context);
   } catch (error) {
     console.log(error);
   }

@@ -142,7 +142,6 @@ const tags = [
 export default (tagName = '') => {
   const [lastTag] = tagName.toLowerCase().split('.').reverse();
   return (
-    tags.find((tag) => [tagName.toLowerCase() === tag, lastTag === tag].some(Boolean)) ||
-    React.Fragment
+    tags.find((tag) => [tagName.toLowerCase() === tag, lastTag === tag].some(Boolean)) || 'div'
   );
 };

@@ -10,9 +10,10 @@ render:
       background: blue
       color: white
       padding: 10px
-    children: this.state.title
-    onClick: |
+    children: !!js this.state.title
+    onClick: !!js |
       () => {
+          console.log(this);
           this.setState(state=> {
               state.title = 'Hello World!'
           })

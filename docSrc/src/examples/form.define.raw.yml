@@ -12,34 +12,26 @@ template:
     type: text
     label: this is label
     value: value
-    render:
-      Label:
-        className: block
-        Span:
-          className: text-gray-700
-          children: ::props.label
-        Input:
-          className: mt-1 block w-full
-          type: ::props.type
-          defaultValue: ::props.value
+    Label:
+      className: block
+      Span:
+        className: text-gray-700
+        children: !!js this.ownProps.label
+      Input:
+        className: mt-1 block w-full
+        type: !!js this.ownProps.type
+        defaultValue: !!js this.ownProps.value
   TButton:
     label: Button
-    render:
-      Button:
-        className: focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg
-        children: ::props.label
-        onClick: |
-          ::() => {
-            console.log('default');
-          }
+    Button:
+      className: focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg
+      children: !!js this.ownProps.label
+      onClick: !!js () => console.log(this)
 
 render:
   Form:
     className: grid grid-cols-1 gap-6
-    onSubmit: |
-      (e) => {
-        e.preventDefault();
-      }
+    onSubmit: !!js 'function (e) { e.preventDefault() }'
     Field_name:
       label: Name
       type: text
@@ -51,3 +43,11 @@ render:
     TButton_submit:
       label: Submit
       type: submit
+      onClick: !!js |
+        function () { return console.log("test111", this.ownProps) }
+    Button:
+      className: focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-red-500 hover:bg-green-600 hover:shadow-lg
+      children: Test
+      label: Test Button
+      onClick: !!js |
+        function () { return console.log("Button", this) }

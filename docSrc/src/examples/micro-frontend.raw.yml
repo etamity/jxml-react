@@ -5,10 +5,10 @@ state:
   pageTitle: Page title
 
 props:
-  title: Default Button
+  title: Micro Frontend
 
 render:
   JXComponent.RemoteApp:
     url: 'https://etamity.github.io/jxml-react/sampleapp/remoteEntry.js'
     scope: 'sampleapp'
-    title: this.props.title
+    title: !!js this.props.title
