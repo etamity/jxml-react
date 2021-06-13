@@ -49,7 +49,7 @@ render:
       color: white
       padding: 10px
     children: this.props.title
-    onClick: |
+    onClick: !!js |
       () => {
         this.setState(state=> {
             state.pageTitle = 'Hello World!'
