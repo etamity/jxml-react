@@ -1,5 +1,6 @@
 import yaml from 'js-yaml';
-const unsafe = require('../../loader/js-types').all;
+import unsafe from './js-types';
+
 const schema = yaml.DEFAULT_SCHEMA.extend(unsafe);
 
 export default {

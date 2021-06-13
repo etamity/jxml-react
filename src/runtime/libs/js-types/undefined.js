@@ -1,8 +1,4 @@
-'use strict';
-
-
-var Type = require('js-yaml').Type;
-
+import { Type } from 'js-yaml';
 
 function resolveJavascriptUndefined() {
   return true;
@@ -21,10 +17,10 @@ function isUndefined(object) {
   return typeof object === 'undefined';
 }
 
-module.exports = new Type('tag:yaml.org,2002:js/undefined', {
+export default new Type('tag:yaml.org,2002:js/undefined', {
   kind: 'scalar',
   resolve: resolveJavascriptUndefined,
   construct: constructJavascriptUndefined,
   predicate: isUndefined,
-  represent: representJavascriptUndefined
+  represent: representJavascriptUndefined,
 });

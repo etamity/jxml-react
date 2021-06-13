@@ -1,16 +1,12 @@
-'use strict';
-
-
-var Type = require('js-yaml').Type;
-
+import { Type } from 'js-yaml';
 
 function resolveJavascriptRegExp(data) {
   if (data === null) return false;
   if (data.length === 0) return false;
 
   var regexp = data,
-      tail   = /\/([gim]*)$/.exec(data),
-      modifiers = '';
+    tail = /\/([gim]*)$/.exec(data),
+    modifiers = '';
 
   // if regexp starts with '/' it can have modifiers and must be properly closed
   // `/foo/gim` - modifiers tail can be maximum 3 chars
@@ -27,8 +23,8 @@ function resolveJavascriptRegExp(data) {
 
 function constructJavascriptRegExp(data) {
   var regexp = data,
-      tail   = /\/([gim]*)$/.exec(data),
-      modifiers = '';
+    tail = /\/([gim]*)$/.exec(data),
+    modifiers = '';
 
   // `/foo/gim` - tail can be maximum 4 chars
   if (regexp[0] === '/') {
@@ -53,10 +49,10 @@ function isRegExp(object) {
   return Object.prototype.toString.call(object) === '[object RegExp]';
 }
 
-module.exports = new Type('tag:yaml.org,2002:js/regexp', {
+export default new Type('tag:yaml.org,2002:js/regexp', {
   kind: 'scalar',
   resolve: resolveJavascriptRegExp,
   construct: constructJavascriptRegExp,
   predicate: isRegExp,
-  represent: representJavascriptRegExp
+  represent: representJavascriptRegExp,
 });

@@ -1,7 +1,5 @@
-'use strict';
-
-var parser = require('esprima');
-var Type = require('js-yaml').Type;
+// var parser = require('esprima');
+import { Type } from 'js-yaml';
 
 function resolveJavascriptFunction(data) {
   if (data === null) return false;
@@ -64,7 +62,7 @@ function isFunction(object) {
   return Object.prototype.toString.call(object) === '[object Function]';
 }
 
-module.exports = [
+export default [
   new Type('tag:yaml.org,2002:js', {
     kind: 'scalar',
     resolve: resolveJavascriptFunction,
