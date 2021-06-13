@@ -8,6 +8,6 @@ props:
   title: Default Button
 
 render:
-  H1: this.state.pageTitle
   JxmlView:
+    title: this.props.title
     url: https://raw.githubusercontent.com/etamity/jxml-react/master/docSrc/src/examples/micro-frontend.raw.yml

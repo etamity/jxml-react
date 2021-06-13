@@ -14,11 +14,7 @@ remote:
 state:
   buttons:
     - label: Material UI 0
-      variant: contained
-      color: primary
     - label: Material UI 1
-      variant: contained
-      color: green
 
 render:
   className: grid grid-rows
@@ -42,18 +38,18 @@ render:
     onMapProps: |
       (props) => {
         console.log(this.state);
-        return this.state?.buttons?.map((
+        return this.state.buttons.map((
           { 
             label, 
             ...props
           }, 
           index) =>  {
             return {
-              ...props,
               key: index,
               children: label
             };
           });
       }
     Mui.Button:
-      children: test
+      variant: contained
+      color: secondary

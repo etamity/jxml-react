@@ -8,6 +8,7 @@ import produce from 'immer';
 import ErrorBoundary from './components/ErrorBoundary';
 import _ from 'lodash';
 import { loadRemoteLib } from './libs';
+import componentsParser from './componentParser';
 
 async function fetchModules(remote, setModules) {
   if (remote) {
@@ -50,6 +51,7 @@ const JXProvider = ({ context, children, ...props }) => {
     },
     [_setState],
   );
+  const templateComponents = jx.template ? componentsParser(jx.template) : {};
 
   const EnvScope = {
     ...scope,
@@ -58,24 +60,28 @@ const JXProvider = ({ context, children, ...props }) => {
     ...modules,
     React,
     ReactRedux,
+    ...templateComponents,
   };
 
   const ThisContext = {
     ...thisContext,
     setState,
-    state,
+    state: { ...jx.state, ...state },
     props: {
       ...jx.props,
       ...props,
     },
   };
+
   const bindScript = bindScopeEnv(EnvScope, ThisContext);
+
   useEffect(() => {
     const { onMount, onUnMount, remote } = jx;
     if (!remote || !modules || !isAllModuleLoaded(remote, modules)) {
       fetchModules(remote, setModules);
     }
     _setState(jx.state);
+
     try {
       onMount && bindScript(onMount)();
     } catch (error) {
@@ -100,7 +106,7 @@ const JXProvider = ({ context, children, ...props }) => {
             EnvScope,
           }}
         >
-          {modules && <JXRender json={jx} />}
+          {modules && <JXRender render={jx.render} />}
         </JXContext.Provider>
       </ErrorBoundary>
     );

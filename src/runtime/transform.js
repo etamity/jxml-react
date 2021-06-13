@@ -1,12 +1,16 @@
 import _ from 'lodash';
 import { isFirstLetterIsUpper } from './libs/utils';
+
 export const transformPropValueStr = ({ propName, value, context }) => {
   try {
     if (propName === 'style' && !_.isPlainObject(value)) {
       return undefined;
     } else if (_.isString(value)) {
-      const { bindScript } = context;
-      if ([/^\S*\bon[A-Z]\w+/.test(propName)].every(Boolean)) {
+      const { bindScript, ownProps } = context;
+      if ([value.indexOf('::') > -1].some(Boolean)) {
+        const [valueRef] = value.split('::').reverse();
+        return bindScript(valueRef, { props: ownProps });
+      } else if ([/^\S*\bon[A-Z]\w+/.test(propName)].every(Boolean)) {
         return bindScript(value);
       } else if ([/\$\{(\'|\")?\w.+\}(\'|\")?/.test(value)].every(Boolean)) {
         return bindScript(`\`${value}\``);
@@ -61,8 +65,8 @@ export function getChildren({ json, context }) {
 }
 
 export function transform({ json, tagName = '_', context }) {
-  const children = getChildren({ json, context });
   const _props = getProps({ json, context });
+  const children = getChildren({ json, context });
   const [componentType, componentName] = tagName.split('_');
   const props =
     children.length > 0
@@ -70,7 +74,7 @@ export function transform({ json, tagName = '_', context }) {
           ..._props,
           children,
         }
-      : _props;
+      : { ..._props };
   return {
     component: componentType,
     name: tagName,

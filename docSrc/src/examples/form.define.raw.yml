@@ -1,0 +1,53 @@
+version: 1.0
+
+state:
+  name: Joey
+  email: xxx@gmail.com
+  gender: male
+  comment: |
+    this is comment!
+
+template:
+  Field:
+    type: text
+    label: this is label
+    value: value
+    render:
+      Label:
+        className: block
+        Span:
+          className: text-gray-700
+          children: ::props.label
+        Input:
+          className: mt-1 block w-full
+          type: ::props.type
+          defaultValue: ::props.value
+  TButton:
+    label: Button
+    render:
+      Button:
+        className: focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg
+        children: ::props.label
+        onClick: |
+          ::() => {
+            console.log('default');
+          }
+
+render:
+  Form:
+    className: grid grid-cols-1 gap-6
+    onSubmit: |
+      (e) => {
+        e.preventDefault();
+      }
+    Field_name:
+      label: Name
+      type: text
+      value: Joey
+    Field_email:
+      label: Email
+      type: text
+      value: Joey@gmail.com
+    TButton_submit:
+      label: Submit
+      type: submit

@@ -2,8 +2,7 @@ import { transform } from './transform';
 import renderAst from './renderAst';
 import { useJXContext } from './JXContext';
 
-export default ({ json }) => {
-  const { render } = json;
+export default ({ render, ...ownProps }) => {
   const { bindScript, EnvScope } = useJXContext();
   const transformRender =
     render &&
@@ -11,10 +10,11 @@ export default ({ json }) => {
       json: render,
       context: {
         bindScript,
+        ownProps,
       },
     });
   try {
-    return renderAst(transformRender, EnvScope);
+    return renderAst(transformRender, EnvScope, ownProps);
   } catch (error) {
     console.log(error);
   }

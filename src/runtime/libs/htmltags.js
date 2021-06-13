@@ -1,3 +1,5 @@
+import React from 'react';
+
 const tags = [
   'a',
   'abbr',
@@ -137,9 +139,10 @@ const tags = [
   'xmp',
 ];
 
-export default (tagName='') => {
+export default (tagName = '') => {
   const [lastTag] = tagName.toLowerCase().split('.').reverse();
   return (
-    tags.find((tag) => [tagName.toLowerCase() === tag, lastTag === tag].some(Boolean)) || 'div'
+    tags.find((tag) => [tagName.toLowerCase() === tag, lastTag === tag].some(Boolean)) ||
+    React.Fragment
   );
 };

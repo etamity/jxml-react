@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useJXContext } from '../JXContext';
 import { useDynamicScript, loadComponent } from '../libs';
 import produce from 'immer';
+import { map } from 'ramda';
 
 const mergeProps = (child, props) => {
   return {

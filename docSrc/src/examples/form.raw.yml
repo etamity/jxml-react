@@ -2,10 +2,72 @@ version: 1.0
 
 state:
   name: Joey
+  email: xxx@gmail.com
   gender: male
+  comment: |
+    this is comment!
+
+define:
+  Field:
+    type: text
+    label: this is label
+    value: value
+    render:
+      Label:
+        className: block
+        Span:
+          className: text-gray-700
+          children: label
+        Input:
+          className: mt-1 block w-full
+          type: text
+          defaultValue: value
 
 render:
   Form:
-    Input_name:
-      type: text
-      defaultValue: this.state.name
+    className: grid grid-cols-1 gap-6
+    onSubmit: |
+      (e) => {
+        e.preventDefault();
+        console.log(e);
+      }
+    Label_name:
+      className: block
+      Span:
+        className: text-gray-700
+        children: Name
+      Input_name:
+        className: mt-1 block w-full
+        type: text
+        defaultValue: this.state.name
+    Label_email:
+      className: block
+      Span:
+        className: text-gray-700
+        children: Email
+      Input_name:
+        className: mt-1 block w-full
+        type: text
+        defaultValue: this.state.email
+    Label_gender:
+      Select:
+        type: select
+        defaultValue: this.state.gender
+        Option_1:
+          value: male
+          children: male
+        Option_2:
+          value: female
+          children: female
+    Label_comment:
+      className: block
+      Span:
+        className: text-gray-700
+        children: Comment
+      Textarea_name:
+        className: form-textarea mt-1 block w-full h-24
+        defaultValue: this.state.comment
+    Button:
+      className: bg-red-300 p-2 border
+      children: Submit
+      type: submit
