@@ -1,7 +1,8 @@
-const yaml = require('js-yaml');
-const unsafe = require('./js-types').all;
+import yaml from 'js-yaml';
+const unsafe = require('../../loader/js-types').all;
 const schema = yaml.DEFAULT_SCHEMA.extend(unsafe);
-module.exports = {
+
+export default {
   load: (src) => {
     return yaml.load(src, { schema });
   },

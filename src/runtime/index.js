@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import yaml from '../loader/yaml';
+import yaml from './libs/yaml';
 import JXProvider from './JXProvider';
 
 export default ({ children, ...props }) => {
