@@ -60,7 +60,7 @@ render:
 and then you can import this component to jsx file:
 
 ```jsx
-import Example from 'jxml-react';
+import Example from './Example.jxml';
 
 export default () => <Example />;
 ```

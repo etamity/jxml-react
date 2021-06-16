@@ -13,9 +13,9 @@ export function getRawProps({ json }) {
     }, {});
 }
 
-export default (components, context) => {
-  return Object.keys(components).reduce((root, next) => {
-    const json = components[next];
+export default (templateJson, context) => {
+  return Object.keys(templateJson).reduce((root, next) => {
+    const json = templateJson[next];
     return {
       ...root,
       [next]: (props) => {

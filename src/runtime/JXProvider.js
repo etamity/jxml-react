@@ -8,7 +8,7 @@ import produce from 'immer';
 import ErrorBoundary from './components/ErrorBoundary';
 import _ from 'lodash';
 import { loadRemoteLib } from './libs';
-import componentsParser from './componentParser';
+import componentsParser from './plugins/template';
 async function fetchModules(remote, setModules) {
   if (remote) {
     const modulesArr = await Promise.all(
@@ -57,7 +57,7 @@ const JXProvider = ({ jx, context, children, ...props }) => {
   if (!children) {
     return React.Fragment;
   }
-  const { components, scope, thisContext } = context || {};
+  const { components, scope, thisContext, plugins = [] } = context || {};
   const [state, _setState] = useState(jx.state);
   const [modules, setModules] = useState(null);
   const setState = useCallback(
@@ -87,6 +87,7 @@ const JXProvider = ({ jx, context, children, ...props }) => {
       },
     },
   };
+
   const templateComponents = jx.template
     ? componentsParser(jx.template, {
         ...defaultContext,
