@@ -1,7 +1,6 @@
-import JXRender from './JXRender';
-import { getChildren } from './transform';
-import { isFirstLetterIsUpper } from './libs/utils';
-import renderAst from './renderAst';
+import { getChildren } from '../../transform';
+import { isFirstLetterIsUpper } from '../../libs/utils';
+import renderAst from '../../renderAst';
 export function getRawProps({ json }) {
   return Object.keys(json)
     .filter((name) => [!isFirstLetterIsUpper(name), name !== 'children'].every(Boolean))
